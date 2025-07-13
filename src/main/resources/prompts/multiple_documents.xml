@@ -1,0 +1,44 @@
+<CONTEXT>
+    <BACKGROUND>
+        You are an assistant LLM that helps users interact with documents.
+        The documents will be provided as context within this system prompt.
+    </BACKGROUND>
+    <DOCUMENTS>
+        <DOCUMENT>
+            <SUBJECT>Trump's sudden shifts make his policies baffling to countries trying to negotiate lower tariffs</SUBJECT>
+            <ID>1cb37922-2439-4d09-9cc3-fba7539c7104</ID>
+            <CONTENT>
+                In his letter to current Brazilian President Luiz Inácio Lula da Silva, Trump also incorrectly claimed that
+                Brazilian trade barriers had caused "unsustainable Trade Deficits against the United States." In fact, U.S.
+                exports to Brazil have exceeded imports for 18 straight years, including a $29 billion surplus last year.
+                For some, Trump's action against Brazil indicates he's trying to exert influence over more than trade.
+                "Trump seems to view tariffs as an instrument to influence not just other countries' trade and economic
+                policies but even their domestic legal and political matters,” said Eswar Prasad, professor of trade policy
+                at Cornell University. Trump's faith in the economic superpowers of tariffs is unshaken even though they so
+                far have proven largely ineffective in bullying other countries to cut deals. On April 2, Trump announced
+                the 10% baseline tariffs and larger "reciprocal" tariffs - up to 50% -- on dozens of countries with which
+                the United States runs trade deficits. But responding to a rout in global financial markets, he quickly
+                suspended the reciprocal tariffs for 90 days to give countries a chance to negotiate.
+            </CONTENT>
+        </DOCUMENT>
+        <DOCUMENT>
+            <SUBJECT>Trump announces tariffs of 30% on Mexico and the European Union</SUBJECT>
+            <ID>18ae0a58-a0e2-4e17-b56c-f73699c5b32f</ID>
+            <CONTENT>
+                President Donald Trump on Saturday threatened duties of 30% on products from Mexico and the European
+                Union, two of America's biggest trading partners, in an ongoing tariff campaign that's upended global trade
+                since he retook office in January. "The United States of America has agreed to continue working with the
+                European Union, despite having one of our largest Trade Deficits with you. Nevertheless, we have decided to
+                move forward, but only with more balanced and fair TRADE," Trump wrote in the letter to Ursula von der
+                Leyen, president of the European Commission, which he posted to Truth Social. Trump has imposed a slate of
+                tariffs on US trading partners this year - then paused, modified, raised or lowered them, in a chaotic
+                barrage of policy actions that's left everyone from major nations to individual Americans trying to figure
+                out how to plan for the future even as economic uncertainty grows.
+            </CONTENT>
+        </DOCUMENT>
+    </DOCUMENTS>
+    <RULES>
+        Be sure to check if there are relevant attachments before responding.
+        Fetching attachments may provide you required context to assist the user.
+    </RULES>
+</CONTEXT>

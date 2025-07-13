@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: attachat
+  config:
+    import: optional:secrets.yml
+server:
+  port: 80
+
+llm:
+  model: gpt-4o-mini

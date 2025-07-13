@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Atta[chat]</title>
+    <meta charset="UTF-8">
+    <script>
+        const setSystemPromptFromButton = button => {
+            const content = button.getAttribute('data-content');
+            document.getElementById('systemPrompt').value = content;
+        };
+    </script>
+    <style>
+        * {
+            font-family: monospace;
+            box-sizing: border-box;
+            color: #2C2C2C;
+        }
+
+        body {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            background-color: #FE5607;
+            color: #e0e0e0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in;
+        }
+
+        button:hover {
+            background-color: #FF2000;
+        }
+
+        button[type="submit"] {
+            background-color: #2C2C2C;
+            color: #e0e0e0;
+            padding: 12px 24px;
+            font-size: 1.1em;
+            margin-top: 10px;
+            width: auto;
+            margin-left: auto;
+            display: block;
+            transition: background-color 0.3s ease-in;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #050066;
+        }
+
+        hr {
+            margin: 20px 0;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+
+        #response {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Atta[chat]</h1>
+    <form id="chatForm" onsubmit="submitChat(); return false;" aria-label="Chat form">
+        <div class="input-group">
+            <label for="systemPrompt">System Prompt:</label>
+            <textarea
+                id="systemPrompt"
+                name="systemPrompt"
+                rows="25"
+                placeholder="Type here..."
+                aria-label="System prompt input"
+                required></textarea>
+        </div>
+
+        <div class="input-group">
+            <div role="group" aria-label="Preset system prompts">
+                <button
+                    type="button"
+                    th:each="btn : ${buttons}"
+                    th:data-content="${btn.content}"
+                    th:text="${btn.label}"
+                    onclick="setSystemPromptFromButton(this)">
+                </button>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="prompt">User Prompt:</label>
+            <textarea
+                id="prompt"
+                name="prompt"
+                rows="10"
+                placeholder="Type here..."
+                aria-label="User prompt input"
+                required></textarea>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        // Very naive implementation
+        const markdownToHtml = md => md
+            .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+            .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+            .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+            .replace(/\*\*(.*)\*\*/gim, '<b>$1</b>')
+            .replace(/\*(.*)\*/gim, '<i>$1</i>')
+            .replace(/\n$/gim, '<br />');
+
+        const submitChat = () => {
+            const systemPrompt = document.getElementById('systemPrompt').value;
+            const prompt = document.getElementById('prompt').value;
+
+            const waitingResponse = 'Waiting for response...';
+            document.getElementById('responseContent').textContent = waitingResponse;
+            document.getElementById('functionCalls').innerHTML = `<li>${waitingResponse}</li>`;
+
+            fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    systemPrompt: systemPrompt,
+                    prompt: prompt
+                })
+            })
+                .then(response => response.json())
+                .then(({ content, functionCalls }) => {
+                    document.getElementById('responseContent').innerHTML = content ? markdownToHtml(content) : 'No content returned';
+                    const functionCallsList = document.getElementById('functionCalls');
+                    functionCallsList.innerHTML = '';
+                    if (functionCalls && functionCalls.length > 0) {
+                        functionCalls.forEach(({ name, arguments }) => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<b>Function</b>: ${name}, <b>Arguments</b>: ${arguments}`;
+                            functionCallsList.appendChild(li);
+                        });
+                    } else {
+                        functionCallsList.innerHTML = '<li>No tool calls made</li>';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+    <div id="response">
+        <h2>Response</h2>
+        <hr>
+        <p id="responseContent">Waiting for request to be made...</p>
+        <hr>
+        <h3>Tool Calls</h3>
+        <ul id="functionCalls">
+            <li>Waiting for request to be made...</li>
+        </ul>
+        <hr>
+    </div>
+
+
+</body>
+
+</html>
