@@ -1,6 +1,7 @@
 package dev.andrew.attachat.controller;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class HomeController {
                         .replace('_', ' ')
                         .trim();
                 label = WordUtils.capitalizeFully(label);
-                String content = new String(resource.getInputStream().readAllBytes());
+                String content = new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
                 buttons.add(new Button(label, content));
             }
         }

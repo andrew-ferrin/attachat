@@ -13,7 +13,7 @@
                 exports to Brazil have exceeded imports for 18 straight years, including a $29 billion surplus last year.
                 For some, Trump's action against Brazil indicates he's trying to exert influence over more than trade.
                 "Trump seems to view tariffs as an instrument to influence not just other countries' trade and economic
-                policies but even their domestic legal and political matters,” said Eswar Prasad, professor of trade policy
+                policies but even their domestic legal and political matters," said Eswar Prasad, professor of trade policy
                 at Cornell University. Trump's faith in the economic superpowers of tariffs is unshaken even though they so
                 far have proven largely ineffective in bullying other countries to cut deals. On April 2, Trump announced
                 the 10% baseline tariffs and larger "reciprocal" tariffs - up to 50% -- on dozens of countries with which
@@ -52,5 +52,7 @@
     <RULES>
         Be sure to check if there are relevant attachments before responding.
         Fetching attachments may provide you required context to assist the user.
+        In your response, if you think there are attachment(s) that may be relevant, ask
+        the user if they want to include the content from those relevant attachments too.
     </RULES>
 </CONTEXT>
